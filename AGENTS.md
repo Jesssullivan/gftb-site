@@ -18,6 +18,44 @@ with them.
   have not landed yet, follow the same rules by hand.
 - Pull requests land by squash.
 
+## Live workstreams and reassertion (operator ruling 2026-10-03)
+
+This file carries no status. Read status, goals and product shape from the
+SSOTs and point at them instead of restating them:
+
+- Linear projects P-TIN-165 "GFTB Membership & Public Surface", P-TIN-163
+  "GFTB Admin Crunch" and P-TIN-164 "GFTB Physical Plant": their issues and
+  project updates.
+- Linear document "GFTB workstream map 2026-10-03"
+  (https://linear.app/tinyland/document/gftb-workstream-map-2026-10-03-aa1362559e3b),
+  or its newest dated successor: the live map of streams.
+- Product shape and real goals: meta `decisions/` (the latest ratified
+  decision wins) and `spec/` (`launch-member-v0-system-2026-08-16.md`,
+  `member-provisioning-executable-slices-2026-08-22.md`,
+  `gftb-microsite-maturity-2026-08-19.md`), read from a freshly fetched
+  upstream `main`; and the latest GFTB product gap analysis document in
+  P-TIN-165.
+- SLAs, SLOs and goal ladders live in Linear issues and project updates,
+  never in this file.
+
+Reassertion cadence: at least once per context window, and again after
+compaction or recovery, visibly reassert the active, queued and held
+workstreams before mutating anything. For each stream give its ticket,
+owner, repo and worktree, branch or PR, state and evidence, dependencies or
+blocker, SLA/SLO and next step. Source it from Linear (the map document and
+the project issues) and from live git (`git worktree list`, open PRs on the
+fork and upstream). Mark reported versus verified facts and unknowns. A
+compact table may follow a readable explanation. Record drift as a dated
+comment on the owning Linear issue, not here.
+
+Owner split:
+
+- Codex: membership, controller, SMTP and HyperKitty (TIN-4215).
+- Claude synthesis seat: public site, UI, release transactions and the
+  contributor contract.
+- Operator only: legal acts, credential mints, list mutations, the realm
+  console and outgoing mail.
+
 ## Role and authority
 
 This public repository builds the public static site at
@@ -295,8 +333,8 @@ Decisions are decided-by-default: search these before writing "open question".
   `src/routes/contact/` no longer exist on that repo's main (deleted in its
   commit 23d9513); this repo's own `src/routes/contact/` and its tests are now
   the contact-surface truth. The three surviving pointers stand.
-- Linear: initiative "Great Falls Tool Bus — Launch" + document "GFTB launch
-  operating map" (milestone spine, SLAs, WIP rule live THERE). Read issue
+- Linear: the projects and workstream map named in "Live workstreams and
+  reassertion" above (streams, SLAs and goal ladders live there). Read issue
   descriptions AND comment threads.
 - `site.scaffold` = machinery only, never GFTB design authority.
 - Standing operator rulings (each recorded in meta/Linear; one line here as a
