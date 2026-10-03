@@ -37,6 +37,9 @@ SSOTs and point at them instead of restating them:
   P-TIN-165.
 - SLAs, SLOs and goal ladders live in Linear issues and project updates,
   never in this file.
+- TLA+ models are an SSOT for the member, identity, list and custody state
+  machines. None exist yet; see TIN-5361 for their home and status, and
+  reassert their state with the other streams.
 
 Reassertion cadence: at least once per context window, and again after
 compaction or recovery, visibly reassert the active, queued and held
