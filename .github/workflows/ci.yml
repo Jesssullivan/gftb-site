@@ -28,9 +28,28 @@ jobs:
       action_name: validate
 
   site-build:
+    if: ${{ github.event_name == 'pull_request' }}
     uses: xoxd-ai/ci-templates/.github/workflows/spoke-ci-v4.yml@c732248e379e276d9d98b601519c161a03bffe09 # main 2026-09-22, fork_owner_allowlist
     with:
       # GF v4 fork pilot: admit pull requests from the operator fork only; a
       # fork run gets the same read-only token and no secrets.
       fork_owner_allowlist: Jesssullivan
       action_name: site-build
+
+  # TIN-4257: review-only caller for the held v5.2 application publisher.
+  # The template's publisher executes and qualifies site-build in its own
+  # invocation; it does not consume the PR action's result or expose a package
+  # writer to a pull request. Replace this Draft source pin only with the
+  # independently qualified immutable release identity before adoption.
+  site-publisher:
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    uses: xoxd-ai/ci-templates/.github/workflows/spoke-ci-v4.yml@b09bd078dddc6e042eeb27a9b9e0f88c2bb5e119 # Draft #165 source candidate, not a release
+    permissions:
+      contents: read
+      id-token: write
+      packages: write
+    with:
+      action_name: site-build
+      publish_application: true
+      materialized_root_max_files: 4096
+      materialized_root_max_bytes: 268435456

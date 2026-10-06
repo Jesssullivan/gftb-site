@@ -127,8 +127,11 @@ is not public.
   `ActionOutputSet/v1`; the application workflow does not rediscover them.
   The public `/srv` subtree depends on `//:scanned_build`, never directly on
   `//:build`; the other three members are fixed deployment configuration.
-- `.github/workflows/ci.yml` contains only the two thin calls to immutable
-  ci-templates revision `c732248e`. The adopting organization installs its own App,
+- `.github/workflows/ci.yml` keeps the two action callers at immutable
+  ci-templates revision `c732248e` and prepares a main-only, opt-in publisher
+  caller at signed Draft revision `b09bd078`. That revision is not a released
+  publication path: its exact-source, installed-client and same-invocation
+  runtime proofs remain outstanding. The adopting organization installs its own App,
   controller, overlay, and generic `gf-v4-dispatch` edge; this repository does
   not enumerate or select them. There is no v3, local, cache-only, hosted,
   direct-endpoint, or repository-specific runner fallback.
@@ -142,18 +145,22 @@ is not public.
 
 ### Which CI job runs which gate
 
-CI calls the immutable schema-3 source
+The ordinary action callers use immutable schema-3 source
 `xoxd-ai/ci-templates/.github/workflows/spoke-ci-v4.yml@c732248e379e276d9d98b601519c161a03bffe09`.
 The existing `Jesssullivan` fork allowlist remains a workflow admission hint,
 not publication or installed execution authority. Each job selects one
 checked-in action name; the reusable workflow checks out the exact source and
 invokes the compiled GF client once. This pin exports qualified action results;
-the separate GF-I09 publisher release and caller adoption remain required.
+the main-only publisher caller is separately prepared against signed Draft
+`b09bd078dddc6e042eeb27a9b9e0f88c2bb5e119`, with a distinct
+`packages: write` grant. Its release, matching installed client, exact-head
+qualification and adoption remain required; this source is not runtime proof.
 
 | Caller job | Action plan entry | Requested Bazel action |
 | --- | --- | --- |
 | `validate` | `validate` | `test //:ci_validation_suite` |
 | `site-build` | `site-build` | `build //:deployment_bundle` |
+| `site-publisher` (main push only; Draft source) | `site-build` | qualified `build //:deployment_bundle` and GF-I09 publication in one invocation |
 
 `just ci` selects both declared remote actions. There is no local browser,
 analysis, coverage, or candidate-publication recipe outside this plan.

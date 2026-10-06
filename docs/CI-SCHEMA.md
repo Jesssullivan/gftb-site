@@ -30,12 +30,19 @@ boolean, caller assertion, or consumer execution path supplies that authority.
 
 ## Validation
 
-`.github/workflows/ci.yml` is a thin v4 caller. It dispatches exactly the two
-actions in `.github/lanes.json` through ci-templates commit
+`.github/workflows/ci.yml` is a thin v4 caller. Its ordinary jobs dispatch
+the two actions in `.github/lanes.json` through ci-templates commit
 `c732248e379e276d9d98b601519c161a03bffe09` from `xoxd-ai/ci-templates`.
-It preserves the existing `Jesssullivan` fork allowlist without granting
-publication or installed execution authority. It contains no runner, provider, endpoint, cache mode, tenant,
-credential, local-execution, or fallback choice. The generic
+The separate main-only `site-publisher` caller is prepared against signed
+Draft source `b09bd078dddc6e042eeb27a9b9e0f88c2bb5e119`; that candidate
+is not an immutable released template or an installed publication path. Its
+opt-in publisher executes and qualifies `site-build` in the same invocation,
+with finite materialized-root bounds. The PR-only `site-build` job does not
+carry package-write authority; only the main-only publisher caller requests it.
+The PR action caller preserves the existing `Jesssullivan` fork allowlist
+without granting publication or installed execution authority. The workflow
+contains no runner, provider, endpoint, cache mode, tenant, credential source,
+local-execution, or fallback choice. The generic
 `gf-v4-dispatch` edge is provisioned by the adopting organization, not selected
 by this repository.
 
